@@ -3,7 +3,8 @@ require('isomorphic-fetch');
 
 function addDestinationInfo(document, name, diameter, star, distance, moons, imageUrl) {
    // Here is the HTML formatting for our mission target div.
-   /*
+   
+   document.getElementById("missionTarget"). innerHTML = `
                 <h2>Mission Destination</h2>
                 <ol>
                     <li>Name: </li>
@@ -12,8 +13,9 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
                     <li>Distance from Earth: </li>
                     <li>Number of Moons: </li>
                 </ol>
-                <img src="">
-   */
+                <img src="${planet.image}">
+                `;
+   
 }
 
 function validateInput(testInput) {
@@ -23,7 +25,7 @@ function validateInput(testInput) {
         if(isNaN(testInput)){
             return("Not a Number");
         } else {
-            if(testInput =""){
+            if(testInput === ""){
                 return("Empty");
             }
         }
@@ -46,16 +48,45 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
    return true;
 }
 
-async function myFetch() {
+function updateNotReady(){
+    document.getElementById("launchStatus").style = "red";
+    document.getElementById("launchStatus").innerHTML = `Shuttle not ready for launch`;
+}
+
+function updateReady(){
+    document.getElementById("launchStatus").style = "green";
+    document.getElementById("launchStatus").innerHTML = `Shuttle  ready for launch`;
+}
+
+function updateRequirements(pilot, copilot, fuelLevel, cargoLevel){
+    document.getElementById("pilotStatus").innerHTML = `Pilot ${pilot.value} is ready for launch`;
+    document.getElementById("copilotStatus").innerHTML = `Copilot ${copilot.value} is ready for launch`;
+
+    if(Number(fuelLevel.value) > 10000) {
+        document.getElementById("fuelStatus").innerHTML = `Fuel level too low to launch`;
+        updateNotReady();
+    }
+    if(Number(cargoLevel.value) > 10000){
+        DocumentType.getElementById("cargoStatus").innerHTML = `Cargo mass too high to launch`;
+        updateNotReady();
+    }
+    document.getElementById("faultItems").style.visibility = "visible";
+}
+
+
+async function myFetch(url) {
     let planetsReturned;
 
-    planetsReturned = await fetch().then( function(response) {
+    planetsReturned = await fetch(url).then( function(response) {
+        return response.json();
         });
 
     return planetsReturned;
 }
 
 function pickPlanet(planets) {
+    num = Math.floor(Math.random()*6);
+    return planets[num];
 }
 
 module.exports.addDestinationInfo = addDestinationInfo;
