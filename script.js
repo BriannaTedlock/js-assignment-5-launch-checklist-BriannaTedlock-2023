@@ -16,7 +16,7 @@ window.addEventListener("load", function() {
        let planet = pickPlanet(listedPlanets);
        console.log(planet);
        addDestinationInfo(planet);
-   })
+   });
    
 
    //form input validation

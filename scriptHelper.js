@@ -1,22 +1,7 @@
 // Write your helper functions here!
 require('isomorphic-fetch');
 
-function addDestinationInfo(document, name, diameter, star, distance, moons, imageUrl) {
-   // Here is the HTML formatting for our mission target div.
-   
-   document.getElementById("missionTarget"). innerHTML = `
-                <h2>Mission Destination</h2>
-                <ol>
-                    <li>Name: ${planet.name} </li>
-                    <li>Diameter: ${planet.diameter}</li>
-                    <li>Star: ${planet.star}</li>
-                    <li>Distance from Earth: ${planet.distance}</li>
-                    <li>Number of Moons: ${planet.moons}</li>
-                </ol>
-                <img src="${planet.image}">
-                `;
-   
-}
+
 
 function validateInput(testInput) {
     num = Number(testInput);
@@ -63,16 +48,31 @@ function updateRequirements(pilot, copilot, fuelLevel, cargoLevel){
     document.getElementById("copilotStatus").innerHTML = `Copilot ${copilot.value} is ready for launch`;
 
     if(Number(fuelLevel.value) > 10000) {
-        document.getElementById("fuelStatus").innerHTML = `Fuel level too low to launch`;
+        document.getElementById("fuelStatus").innerHTML = 'Fuel level too low to launch';
         updateNotReady();
     }
     if(Number(cargoLevel.value) > 10000){
-        DocumentType.getElementById("cargoStatus").innerHTML = `Cargo mass too high to launch`;
+        DocumentType.getElementById("cargoStatus").innerHTML = 'Cargo mass too high to launch';
         updateNotReady();
     }
-    document.getElementById("faultItems").style.visibility = "visible";
+    document.getElementById("faultyItems").style.visibility = "visible";
 }
-
+function addDestinationInfo(document, name, diameter, star, distance, moons, imageUrl) {
+    // Here is the HTML formatting for our mission target div.
+    
+    document.getElementById("missionTarget"). innerHTML = `
+                 <h2>Mission Destination</h2>
+                 <ol>
+                     <li>Name: ${planet.name} </li>
+                     <li>Diameter: ${planet.diameter}</li>
+                     <li>Star: ${planet.star}</li>
+                     <li>Distance from Earth: ${planet.distance}</li>
+                     <li>Number of Moons: ${planet.moons}</li>
+                 </ol>
+                 <img src="${planet.imageUrl}">
+                 `;
+    
+ }
 
 async function myFetch(url) {
     let planetsReturned;
