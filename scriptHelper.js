@@ -7,11 +7,11 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
    document.getElementById("missionTarget"). innerHTML = `
                 <h2>Mission Destination</h2>
                 <ol>
-                    <li>Name: </li>
-                    <li>Diameter: </li>
-                    <li>Star: ${star}</li>
-                    <li>Distance from Earth: </li>
-                    <li>Number of Moons: </li>
+                    <li>Name: ${planet.name} </li>
+                    <li>Diameter: ${planet.diameter}</li>
+                    <li>Star: ${planet.star}</li>
+                    <li>Distance from Earth: ${planet.distance}</li>
+                    <li>Number of Moons: ${planet.moons}</li>
                 </ol>
                 <img src="${planet.image}">
                 `;
@@ -19,21 +19,21 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
 }
 
 function validateInput(testInput) {
-    if(testInput > 0 || testInput < 0){
-        return("Is a Number");
-    } else {
-        if(isNaN(testInput)){
-            return("Not a Number");
-        } else {
-            if(testInput === ""){
-                return("Empty");
-            }
-        }
+    num = Number(testInput);
+
+    if(testInput === ''){
+        return "Empty";
+    }
+    if(isNaN(testInput)){
+        return "Not a number";
+    }
+    if(isNaN(testInput) === false){
+        return "Is a number";
     }
    
 }
 
-function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
+function formSubmission(pilot, copilot, fuelLevel, cargoLevel) {
    if(validateInput(pilot.value) === "Empty" || validateInput(copilot.value) === "Empty" || validateInput(fuelLevel.value) === "Empty" || validateInput(cargoLevel.value) === "Empty") {
     alert("All fields are required!");
     return false;
